@@ -15,6 +15,8 @@
 #import <KSCrash/KSCrashInstallationEmail.h>
 #import <KSCrash/KSCrashInstallationVictory.h>
 
+#import <KSCrash/KSCrashInstallationFile.h>
+
 @implementation AppDelegate
 
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification
@@ -36,7 +38,9 @@
 {
     // Create an installation (choose one)
 //    KSCrashInstallation* installation = [self makeStandardInstallation];
-    KSCrashInstallation* installation = [self makeEmailInstallation];
+//    KSCrashInstallation* installation = [self makeEmailInstallation];
+    KSCrashInstallation* installation = [self makeFileInstallation];
+
 //    KSCrashInstallation* installation = [self makeHockeyInstallation];
 //    KSCrashInstallation* installation = [self makeQuincyInstallation];
 //    KSCrashInstallation *installation = [self makeVictoryInstallation];
@@ -83,6 +87,21 @@
 
     return email;
 }
+
+
+- (KSCrashInstallation *) makeFileInstallation
+{
+    
+    NSString *fileDir = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES).firstObject;
+    
+    
+    KSCrashInstallationFile *file = [KSCrashInstallationFile sharedInstance];
+    file.fileDir = fileDir;
+    
+    return file;
+
+}
+
 
 - (KSCrashInstallation*) makeHockeyInstallation
 {
